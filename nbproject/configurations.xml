@@ -4,11 +4,15 @@
     <logicalFolder name="SourceFiles"
                    displayName="Исходные файлы"
                    projectFiles="true">
+      <itemPath>Draw.cpp</itemPath>
       <itemPath>Main.cpp</itemPath>
+      <itemPath>Recognize.cpp</itemPath>
     </logicalFolder>
     <logicalFolder name="HeaderFiles"
                    displayName="Файлы заголовков"
                    projectFiles="true">
+      <itemPath>Draw.h</itemPath>
+      <itemPath>Recognize.h</itemPath>
     </logicalFolder>
     <logicalFolder name="ResourceFiles"
                    displayName="Файлы ресурсов"
@@ -38,11 +42,19 @@
       </toolsSet>
       <compileType>
       </compileType>
+      <item path="Draw.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="Draw.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="LICENSE" ex="false" tool="3" flavor2="0">
       </item>
       <item path="Main.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="README.md" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="Recognize.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="Recognize.h" ex="false" tool="3" flavor2="0">
       </item>
     </conf>
     <conf name="Release" type="1">
@@ -65,11 +77,19 @@
           <developmentMode>5</developmentMode>
         </asmTool>
       </compileType>
+      <item path="Draw.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="Draw.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="LICENSE" ex="false" tool="3" flavor2="0">
       </item>
       <item path="Main.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="README.md" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="Recognize.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="Recognize.h" ex="false" tool="3" flavor2="0">
       </item>
     </conf>
   </confs>
