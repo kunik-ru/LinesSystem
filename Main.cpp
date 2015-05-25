@@ -19,11 +19,12 @@ static inline bool isNumber(const string &str) {
 }
 
 void drawHelp() {
-    printf("draw [-s width height] [-p top left] [-h lineHeight] [-n lineNumber] [-f file]\n");
+    cout << "draw [-s width height] [-p top left] [-h lineHeight] [-n lineNumber] [-f file]" << endl;
 }
 
 void recognizeHelp() {
-    printf("recognize [-p top left] [-h lineHeight] [-f file]\n");
+    cout << "recognize [-p top left] [-h lineHeight] [-f file]" << endl;
+    ;
 }
 
 int main(int argc, char** argv) {
@@ -31,11 +32,14 @@ int main(int argc, char** argv) {
     int code = 1;
 
     int width = 100, height = 100, top = 0, left = 0, lineHeight = 1, lineNumber = 10;
-    char *file = (char*) "file.pbm";
 
-    char command[100] = "";
+    char* file = (char*) malloc(20 * sizeof (char));
 
-    printf("Lines program launched. Enter command or 'help'\n");
+    strcpy(file, "file.pbm");
+
+    char* command = (char*) malloc(200 * sizeof (char));
+
+    cout << "Lines program launched. Enter command or 'help'" << endl;
 
     while (code) {
 
@@ -45,16 +49,16 @@ int main(int argc, char** argv) {
         tokenizedCommand = strtok(tokenizedCommand, " ");
 
         if ((strcmp(tokenizedCommand, "quit") == 0) || (strcmp(tokenizedCommand, "q") == 0)) {
-            printf("Goodbye!\n");
+            cout << "Goodbye!" << endl;
             code = 0;
         }
 
         if ((strcmp(tokenizedCommand, "help") == 0) || (strcmp(tokenizedCommand, "h") == 0)) {
-            printf("Available commands:\n");
-            printf("'help' or 'h' - this list\n");
-            printf("'draw' or 'd' - draw lines (show parameters list)\n");
-            printf("'recognize' or 'r' - recognize from file (show parameters list)\n");
-            printf("'quit' or 'q' - exit program\n");
+            cout << "Available commands:" << endl;
+            cout << "'help' or 'h' - this list" << endl;
+            cout << "'draw' or 'd' - draw lines (show parameters list)" << endl;
+            cout << "'recognize' or 'r' - recognize from file (show parameters list)" << endl;
+            cout << "'quit' or 'q' - exit program" << endl;
         }
 
         if ((strcmp(tokenizedCommand, "draw") == 0) || (strcmp(tokenizedCommand, "d") == 0)) {
@@ -63,88 +67,123 @@ int main(int argc, char** argv) {
                 continue;
             } else {
                 do {
-                    if (strcmp(tokenizedCommand, "-s") == 0 && (tokenizedCommand = strtok(NULL, " ")) != NULL) {
+                    if ((strcmp(tokenizedCommand, "-s") == 0) && ((tokenizedCommand = strtok(NULL, " ")) != NULL)) {
                         if (isNumber(tokenizedCommand)) {
                             width = atoi(tokenizedCommand);
-                        }
-                        else {
+                        } else {
                             cout << "Incorrect -s parameter: " << tokenizedCommand << endl;
                             drawHelp();
                         }
                         if ((tokenizedCommand = strtok(NULL, " ")) != NULL) {
                             if (isNumber(tokenizedCommand)) {
                                 height = atoi(tokenizedCommand);
-                            }
-                            else {
+                            } else {
                                 cout << "Incorrect -s parameter: " << tokenizedCommand << endl;
                                 drawHelp();
                             }
                         }
                         continue;
                     }
-                    if (strcmp(tokenizedCommand, "-p") == 0 && (tokenizedCommand = strtok(NULL, " ")) != NULL) {
+                    if ((strcmp(tokenizedCommand, "-p") == 0) && ((tokenizedCommand = strtok(NULL, " ")) != NULL)) {
                         if (isNumber(tokenizedCommand)) {
                             top = atoi(tokenizedCommand);
-                        }
-                        else {
+                        } else {
                             cout << "Incorrect -p parameter: " << tokenizedCommand << endl;
                             drawHelp();
                         }
                         if ((tokenizedCommand = strtok(NULL, " ")) != NULL) {
                             if (isNumber(tokenizedCommand)) {
                                 left = atoi(tokenizedCommand);
-                            }
-                            else {
+                            } else {
                                 cout << "Incorrect -p parameter: " << tokenizedCommand << endl;
                                 drawHelp();
                             }
                         }
                         continue;
                     }
-                    if (strcmp(tokenizedCommand, "-h") == 0 && (tokenizedCommand = strtok(NULL, " ")) != NULL) {
+                    if ((strcmp(tokenizedCommand, "-h") == 0) && ((tokenizedCommand = strtok(NULL, " ")) != NULL)) {
                         if (isNumber(tokenizedCommand)) {
                             lineHeight = atoi(tokenizedCommand);
-                        }
-                        else {
+                        } else {
                             cout << "Incorrect -h parameter: " << tokenizedCommand << endl;
                             drawHelp();
                         }
                         continue;
                     }
-                    if (strcmp(tokenizedCommand, "-n") == 0 && (tokenizedCommand = strtok(NULL, " ")) != NULL) {
+                    if ((strcmp(tokenizedCommand, "-n") == 0) && ((tokenizedCommand = strtok(NULL, " ")) != NULL)) {
                         if (isNumber(tokenizedCommand)) {
                             lineNumber = atoi(tokenizedCommand);
-                        }
-                        else {
+                        } else {
                             cout << "Incorrect -n parameter: " << tokenizedCommand << endl;
                             drawHelp();
                         }
                         continue;
                     }
-                    if (strcmp(tokenizedCommand, "-f") == 0 && (tokenizedCommand = strtok(NULL, " ")) != NULL) {
-                        file = tokenizedCommand;
+                    if ((strcmp(tokenizedCommand, "-f") == 0) && ((tokenizedCommand = strtok(NULL, " ")) != NULL)) {
+                        if (strlen(tokenizedCommand) <= 20) {
+                            strcpy(file, tokenizedCommand);
+                        } else {
+                            cout << "File name too long" << endl;
+                        }
                     }
                     tokenizedCommand = strtok(NULL, " ");
-                } 
-                while (tokenizedCommand != NULL);
+                } while (tokenizedCommand != NULL);
+
+                //Here draw
+
             }
             continue;
         }
 
         if ((strcmp(tokenizedCommand, "recognize") == 0) || (strcmp(tokenizedCommand, "r") == 0)) {
             if ((tokenizedCommand = strtok(NULL, " ")) == NULL) {
-                drawHelp();
+                recognizeHelp();
                 continue;
             } else {
                 do {
-                    
+                    if ((strcmp(tokenizedCommand, "-p") == 0) && ((tokenizedCommand = strtok(NULL, " ")) != NULL)) {
+                        if (isNumber(tokenizedCommand)) {
+                            top = atoi(tokenizedCommand);
+                        } else {
+                            cout << "Incorrect -p parameter: " << tokenizedCommand << endl;
+                            recognizeHelp();
+                        }
+                        if ((tokenizedCommand = strtok(NULL, " ")) != NULL) {
+                            if (isNumber(tokenizedCommand)) {
+                                left = atoi(tokenizedCommand);
+                            } else {
+                                cout << "Incorrect -p parameter: " << tokenizedCommand << endl;
+                                recognizeHelp();
+                            }
+                        }
+                        continue;
+                    }
+                    if ((strcmp(tokenizedCommand, "-h") == 0) && ((tokenizedCommand = strtok(NULL, " ")) != NULL)) {
+                        if (isNumber(tokenizedCommand)) {
+                            lineHeight = atoi(tokenizedCommand);
+                        } else {
+                            cout << "Incorrect -h parameter: " << tokenizedCommand << endl;
+                            recognizeHelp();
+                        }
+                        continue;
+                    }
+                    if ((strcmp(tokenizedCommand, "-f") == 0) && ((tokenizedCommand = strtok(NULL, " ")) != NULL)) {
+                        if (strlen(tokenizedCommand) <= 20) {
+                            strcpy(file, tokenizedCommand);
+                        } else {
+                            cout << "File name too long" << endl;
+                        }
+                        continue;
+                    }
                     tokenizedCommand = strtok(NULL, " ");
-                } 
-                while (tokenizedCommand != NULL);
+                } while (tokenizedCommand != NULL);
+
+                //Here recognize
+
             }
             continue;
         }
-        
+
         if (strcmp(tokenizedCommand, "debug") == 0) {
             cout << "width = " << width << endl;
             cout << "height = " << height << endl;
@@ -156,6 +195,9 @@ int main(int argc, char** argv) {
             continue;
         }
     }
-    
+
+    delete(file);
+    delete(command);
+
     return code;
 }
