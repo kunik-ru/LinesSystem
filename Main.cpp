@@ -1,18 +1,12 @@
-using namespace std;
-
-#include <stdio.h>
-#include <cstdlib>
-#include <iostream>
-#include <cstring>
-#include <string>
-
 #include "Recognize.h"
 #include "Draw.h"
+
+using namespace std;
 
 Draw *draw = new Draw();
 Recognize *recognize = new Recognize();
 
-static inline bool isNumber(const string &str) {
+inline bool isNumber(const string &str) {
     string::const_iterator it = str.begin();
     while (it != str.end() && isdigit(*it)) ++it;
     return !str.empty() && it == str.end();
@@ -129,8 +123,8 @@ int main(int argc, char** argv) {
                     tokenizedCommand = strtok(NULL, " ");
                 } while (tokenizedCommand != NULL);
 
-                //Here draw
-
+                draw -> draw(width, height, top, left, lineHeight, lineNumber, file);
+                
             }
             continue;
         }
