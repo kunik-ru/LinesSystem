@@ -13,11 +13,11 @@ inline bool isNumber(const string &str) {
 }
 
 void drawHelp() {
-    cout << "draw [-s width height] [-p top left] [-h lineHeight] [-n lineNumber] [-f file]" << endl;
+    cout << "draw [-s width height] [-h lineHeight] [-n lineNumber] [-f file]" << endl;
 }
 
 void recognizeHelp() {
-    cout << "recognize [-p top left] [-h lineHeight] [-f file]" << endl;
+    cout << "recognize [-h lineHeight] [-f file]" << endl;
     ;
 }
 
@@ -25,7 +25,7 @@ int main(int argc, char** argv) {
 
     int code = 1;
 
-    int width = 100, height = 100, top = 0, left = 0, lineHeight = 1, lineNumber = 10;
+    int width = 100, height = 100, lineHeight = 1, lineNumber = 10;
 
     char* file = (char*) malloc(20 * sizeof (char));
 
@@ -78,23 +78,6 @@ int main(int argc, char** argv) {
                         }
                         continue;
                     }
-                    if ((strcmp(tokenizedCommand, "-p") == 0) && ((tokenizedCommand = strtok(NULL, " ")) != NULL)) {
-                        if (isNumber(tokenizedCommand)) {
-                            top = atoi(tokenizedCommand);
-                        } else {
-                            cout << "Incorrect -p parameter: " << tokenizedCommand << endl;
-                            drawHelp();
-                        }
-                        if ((tokenizedCommand = strtok(NULL, " ")) != NULL) {
-                            if (isNumber(tokenizedCommand)) {
-                                left = atoi(tokenizedCommand);
-                            } else {
-                                cout << "Incorrect -p parameter: " << tokenizedCommand << endl;
-                                drawHelp();
-                            }
-                        }
-                        continue;
-                    }
                     if ((strcmp(tokenizedCommand, "-h") == 0) && ((tokenizedCommand = strtok(NULL, " ")) != NULL)) {
                         if (isNumber(tokenizedCommand)) {
                             lineHeight = atoi(tokenizedCommand);
@@ -123,7 +106,7 @@ int main(int argc, char** argv) {
                     tokenizedCommand = strtok(NULL, " ");
                 } while (tokenizedCommand != NULL);
 
-                draw -> draw(width, height, top, left, lineHeight, lineNumber, file);
+                draw -> draw(width, height, lineHeight, lineNumber, file);
                 
             }
             continue;
@@ -135,23 +118,6 @@ int main(int argc, char** argv) {
                 continue;
             } else {
                 do {
-                    if ((strcmp(tokenizedCommand, "-p") == 0) && ((tokenizedCommand = strtok(NULL, " ")) != NULL)) {
-                        if (isNumber(tokenizedCommand)) {
-                            top = atoi(tokenizedCommand);
-                        } else {
-                            cout << "Incorrect -p parameter: " << tokenizedCommand << endl;
-                            recognizeHelp();
-                        }
-                        if ((tokenizedCommand = strtok(NULL, " ")) != NULL) {
-                            if (isNumber(tokenizedCommand)) {
-                                left = atoi(tokenizedCommand);
-                            } else {
-                                cout << "Incorrect -p parameter: " << tokenizedCommand << endl;
-                                recognizeHelp();
-                            }
-                        }
-                        continue;
-                    }
                     if ((strcmp(tokenizedCommand, "-h") == 0) && ((tokenizedCommand = strtok(NULL, " ")) != NULL)) {
                         if (isNumber(tokenizedCommand)) {
                             lineHeight = atoi(tokenizedCommand);
@@ -181,8 +147,6 @@ int main(int argc, char** argv) {
         if (strcmp(tokenizedCommand, "debug") == 0) {
             cout << "width = " << width << endl;
             cout << "height = " << height << endl;
-            cout << "top = " << top << endl;
-            cout << "left = " << left << endl;
             cout << "lineHeight = " << lineHeight << endl;
             cout << "lineNumber = " << lineNumber << endl;
             cout << "file = " << file << endl;

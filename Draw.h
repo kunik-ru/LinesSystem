@@ -18,7 +18,6 @@ class Draw {
 public:
     Draw();
     void draw(const int &width, const int &height,
-            const int &top, const int &left,
             const int &lineHeight, const int &lineNumber,
             const std::string &file);
     virtual ~Draw();
