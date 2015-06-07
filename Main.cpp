@@ -22,6 +22,12 @@ void recognizeHelp() {
 }
 
 int main(int argc, char** argv) {
+    
+    //GL Start
+    
+    glutInit(&argc, argv);
+    
+    //GL End
 
     int code = 1;
 
@@ -105,7 +111,7 @@ int main(int argc, char** argv) {
                     }
                     tokenizedCommand = strtok(NULL, " ");
                 } while (tokenizedCommand != NULL);
-
+                
                 draw -> draw(width, height, lineHeight, lineNumber, file);
                 
             }
@@ -154,8 +160,11 @@ int main(int argc, char** argv) {
         }
     }
 
-    delete(file);
-    delete(command);
+    free(file);
+    free(command);
+    
+    delete(draw);
+    delete(recognize);
 
     return code;
 }

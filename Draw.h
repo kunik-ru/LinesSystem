@@ -14,6 +14,8 @@
 
 #include <ctime>
 
+#include <GL/freeglut.h>
+
 class Draw {
 public:
     Draw();
@@ -22,7 +24,8 @@ public:
             const std::string &file);
     virtual ~Draw();
 private:
-    inline int generateRandomNumber(int &maxVal, int &num, int* &array);
+    void freeglutInit(const int &windowWidth, const int &windowHeight);
+    void generateRandomNumber(int &maxVal, int &num, int* array);
     void writeFile();
 };
 
