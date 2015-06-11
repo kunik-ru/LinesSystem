@@ -81,8 +81,6 @@ void Draw::draw(const int &width, const int &height,
      * lineArray[iter + 1][1] = y2
      */
     
-    cout << hLinesNum << endl;
-    
     for (iter = 0; iter < (hLinesNum * 2); iter += 2) {
         
         float pos = ((float)(hRandArr[(iter / 2)]) - ((float)height) / 2) / ((float)height);

@@ -61,6 +61,8 @@ int main(int argc, char** argv) {
         if ((strcmp(tokenizedCommand, "draw") == 0) || (strcmp(tokenizedCommand, "d") == 0)) {
             if ((tokenizedCommand = strtok(NULL, " ")) == NULL) {
                 drawHelp();
+                cout << "Drawing with standart parameters" << endl;
+                draw -> draw(width, height, lineHeight, lineNumber, file);
                 continue;
             } else {
                 do {
@@ -118,6 +120,8 @@ int main(int argc, char** argv) {
         if ((strcmp(tokenizedCommand, "recognize") == 0) || (strcmp(tokenizedCommand, "r") == 0)) {
             if ((tokenizedCommand = strtok(NULL, " ")) == NULL) {
                 recognizeHelp();
+                cout << "Recognizing with standart parameters" << endl;
+                recognize -> recognize(file, lineHeight);
                 continue;
             } else {
                 do {
@@ -141,7 +145,7 @@ int main(int argc, char** argv) {
                     tokenizedCommand = strtok(NULL, " ");
                 } while (tokenizedCommand != NULL);
 
-                //Here recognize
+                recognize -> recognize(file, lineHeight);
 
             }
             continue;

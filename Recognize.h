@@ -16,9 +16,10 @@
 class Recognize {
 public:
     Recognize();
+    void recognize(const std::string &file, const int &lineHeight);
     virtual ~Recognize();
 private:
-
+    void readFile(const std::string &file, int &width, int &height, int pictureArray[][1000]);
 };
 
 #endif
