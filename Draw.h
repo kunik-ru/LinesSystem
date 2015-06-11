@@ -18,13 +18,17 @@
 
 class Draw {
 public:
-    Draw();
+    Draw(int argc, char** argv);
     void draw(const int &width, const int &height,
             const int &lineHeight, const int &lineNumber,
             const std::string &file);
     virtual ~Draw();
 private:
+    int argc;
+    char** argv;
     void freeglutInit(const int &windowWidth, const int &windowHeight);
+    void freeglutClear();
+    void freeglutDraw(float lineArray[][2], const int &lineNum);
     void generateRandomNumber(int &maxVal, int &num, int* array);
     void writeFile();
 };

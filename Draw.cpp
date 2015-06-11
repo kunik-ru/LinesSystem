@@ -2,16 +2,53 @@
 
 using namespace std;
 
-Draw::Draw() {
-    
+int argc;
+char** argv;
+
+Draw::Draw(int argc, char** argv) {
+    this -> argc = argc;
+    this -> argv = argv;
 }
 
 void Draw::freeglutInit(const int& windowWidth, const int& windowHeight) {
+    glutInit(&argc, argv);
     glutInitDisplayMode(GLUT_SINGLE | GLUT_RGB);
     glutInitWindowSize(windowWidth, windowHeight);
     glutInitWindowPosition((glutGet(GLUT_SCREEN_WIDTH) / 2) - (windowWidth / 2),
             (glutGet(GLUT_SCREEN_HEIGHT) / 2) - (windowHeight / 2));
     glutSetOption(GLUT_ACTION_ON_WINDOW_CLOSE, GLUT_ACTION_CONTINUE_EXECUTION);
+}
+
+void Draw::freeglutClear() {
+    
+    glClearColor(1.0, 1.0, 1.0, 0.0);
+    glClear(GL_COLOR_BUFFER_BIT);
+    
+    glMatrixMode(GL_PROJECTION);
+    glLoadIdentity();
+}
+
+void Draw::freeglutDraw(float lineArray[][2], const int &lineNum) {
+    
+    glBegin(GL_LINES);
+    
+    int iter;
+    
+    /*
+     * lineArray[iter][0] = x1 
+     * lineArray[iter][1] = y1
+     * lineArray[iter + 1][0] = x2
+     * lineArray[iter + 1][1] = y2
+     */
+    
+    for (iter = 0; iter < (lineNum * 2); iter += 2) {
+        glColor3f(0.0, 0.0, 0.0);
+        glVertex2f(lineArray[iter][0], lineArray[iter][1]);
+        glVertex2f(lineArray[iter + 1][0], lineArray[iter + 1][1]);
+    }
+    
+    glEnd();
+    glFlush();
 }
 
 void Draw::draw(const int &width, const int &height, 
@@ -32,23 +69,50 @@ void Draw::draw(const int &width, const int &height,
     generateRandomNumber(maxHeightVal, hLinesNum, hRandArr);
     generateRandomNumber(maxWidthVal, wLinesNum, wRandArr);
     
+    float hLineArray[hLinesNum * 2][2];
+    float wLineArray[wLinesNum * 2][2];
+    
+    int iter;
+    
+    /*
+     * lineArray[iter][0] = x1 
+     * lineArray[iter][1] = y1
+     * lineArray[iter + 1][0] = x2
+     * lineArray[iter + 1][1] = y2
+     */
+    
+    cout << hLinesNum << endl;
+    
+    for (iter = 0; iter < (hLinesNum * 2); iter += 2) {
+        
+        float pos = ((float)(hRandArr[(iter / 2)]) - ((float)height) / 2) / ((float)height);
+        
+        hLineArray[iter][0] = -1;
+        hLineArray[iter][1] = pos;
+        hLineArray[iter + 1][0] = 1;
+        hLineArray[iter + 1][1] = pos;
+    }
+    
+    for (iter = 0; iter < (wLinesNum * 2); iter += 2) {
+        
+        float pos = ((float)(wRandArr[(iter / 2)]) - ((float)width) / 2) / ((float)width);
+        
+        wLineArray[iter][0] = pos;
+        wLineArray[iter][1] = -1;
+        wLineArray[iter + 1][0] = pos;
+        wLineArray[iter + 1][1] = 1;
+    }
+    
     //GL Start
     
     freeglutInit(width, height);
+    
     glutCreateWindow("Lines system");
     
-    glClear(GL_COLOR_BUFFER_BIT);
-    glColor3f(1.0, 1.0, 1.0);
-    glMatrixMode(GL_PROJECTION);
-    glLoadIdentity();
-    glBegin(GL_LINES);
+    freeglutClear();
     
-    //Draw start
-    
-    //Draw end
-    
-    glEnd();
-    glFlush();
+    freeglutDraw(hLineArray, hLinesNum);
+    freeglutDraw(wLineArray, wLinesNum);
     
     glutMainLoop();
     

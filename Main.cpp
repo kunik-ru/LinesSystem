@@ -3,8 +3,8 @@
 
 using namespace std;
 
-Draw *draw = new Draw();
-Recognize *recognize = new Recognize();
+Draw *draw;
+Recognize *recognize;
 
 inline bool isNumber(const string &str) {
     string::const_iterator it = str.begin();
@@ -23,15 +23,12 @@ void recognizeHelp() {
 
 int main(int argc, char** argv) {
     
-    //GL Start
-    
-    glutInit(&argc, argv);
-    
-    //GL End
+    draw = new Draw(argc, argv);
+    recognize = new Recognize();
 
     int code = 1;
 
-    int width = 100, height = 100, lineHeight = 1, lineNumber = 10;
+    int width = 400, height = 400, lineHeight = 1, lineNumber = 10;
 
     char* file = (char*) malloc(20 * sizeof (char));
 
