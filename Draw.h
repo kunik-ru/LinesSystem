@@ -7,6 +7,7 @@
 #include <stdio.h>
 #include <cstdlib>
 #include <iostream>
+#include <fstream>
 #include <cstring>
 #include <string>
 
@@ -30,7 +31,10 @@ private:
     void freeglutClear();
     void freeglutDraw(float lineArray[][2], const int &lineNum);
     void generateRandomNumber(int &maxVal, int &num, int* array);
-    void writeFile();
+    void writeFile(const int &width, const int &height,
+            int *hRandArr, const int &hLinesNum,
+            int *wRandArr, const int &wLinesNum,
+            const std::string &file);
 };
 
 #endif

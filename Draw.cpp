@@ -103,6 +103,8 @@ void Draw::draw(const int &width, const int &height,
         wLineArray[iter + 1][1] = 1;
     }
     
+    writeFile(width, height, hRandArr, hLinesNum, wRandArr, wLinesNum, file);
+    
     //GL Start
     
     freeglutInit(width, height);
@@ -148,8 +150,46 @@ void Draw::generateRandomNumber(int &maxVal, int &num, int* array) {
     }
 }
 
-void Draw::writeFile() {
+void Draw::writeFile(const int &width, const int &height,
+            int *hRandArr, const int &hLinesNum,
+            int *wRandArr, const int &wLinesNum,
+            const string &file) {
     
+    int pictureArray[1000][1000]; //2000 causes segmentation fault
+    
+    ofstream picture(file.c_str());
+    
+    picture << "P1" << endl;
+    picture << width << " " << height << endl; 
+    
+    int iter, hIter, wIter;
+    
+    for (hIter = 0; hIter < 1000; hIter++) {
+        for (wIter = 0; wIter < 1000; wIter++) {
+            pictureArray[hIter][wIter] = 0;
+        }
+    }
+    
+    for (iter = 0; iter < hLinesNum; iter++) {
+        for (wIter = 0; wIter < width; wIter++) {
+            pictureArray[hRandArr[iter]][wIter] = 1;
+        }
+    }
+    
+    for (iter = 0; iter < wLinesNum; iter++) {
+        for (hIter = 0; hIter < height; hIter++) {
+            pictureArray[hIter][wRandArr[iter]] = 1;
+        }
+    }
+    
+    for (hIter = 0; hIter < height; hIter++) {
+        for (wIter = 0; wIter < width; wIter++) {
+            picture << pictureArray[hIter][wIter];
+        }
+        picture << endl;
+    }
+    
+    picture.close();
 }
 
 Draw::~Draw() {
